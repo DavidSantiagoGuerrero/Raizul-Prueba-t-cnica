@@ -15,14 +15,14 @@ from pathlib import Path
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import URL, make_url
 
-def _test_database_url() -> URL:
+def test_database_url() -> URL:
     """URL de la base de pruebas: TEST_DATABASE_URL o DATABASE_URL + sufijo `_test`."""
     url = make_url(os.environ.get("TEST_DATABASE_URL") or os.environ["DATABASE_URL"])
     if not (url.database or "").endswith("_test"):
         url = url.set(database=f"{url.database}_test")
     return url
 
-TEST_URL = _test_database_url()
+TEST_URL = test_database_url()
 os.environ["DATABASE_URL"] = TEST_URL.render_as_string(hide_password=False)
 
 import pytest
@@ -35,7 +35,7 @@ from app.main import app
 
 ALEMBIC_INI = Path(__file__).resolve().parents[1] / "alembic.ini"
 
-def _create_database_if_missing() -> None:
+def create_database_if_missing() -> None:
     """Crea la base de pruebas conectándose a la base de mantenimiento `postgres`."""
     admin = create_engine(TEST_URL.set(database="postgres"), isolation_level="AUTOCOMMIT")
     with admin.connect() as conn:
@@ -49,7 +49,7 @@ def _create_database_if_missing() -> None:
 @pytest.fixture(scope="session", autouse=True)
 def database():
     """Deja la base de pruebas vacía y le aplica las migraciones (una vez por sesión)."""
-    _create_database_if_missing()
+    create_database_if_missing()
     with engine.begin() as conn:
         conn.execute(text("DROP SCHEMA public CASCADE"))
         conn.execute(text("CREATE SCHEMA public"))

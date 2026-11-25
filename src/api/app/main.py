@@ -5,10 +5,11 @@ Se ejecuta con `uvicorn app.main:app`. La documentación interactiva queda en `/
 
 from fastapi import FastAPI
 
-from app.routers import producers
+from app.routers import farms, producers
 
 app = FastAPI(title="API de productores de cacao")
 app.include_router(producers.router)
+app.include_router(farms.router)
 
 @app.get("/health", tags=["health"])
 def health():
