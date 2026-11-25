@@ -5,8 +5,10 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Primero solo requirements.txt, para aprovechar la caché de capas de Docker.
-COPY requirements.txt .
+COPY requirements.txt requirements-dev.txt ./
+
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements-dev.txt
 
 COPY . .
 

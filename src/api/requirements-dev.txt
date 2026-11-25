@@ -1,0 +1,5 @@
+# requirements-dev.txt — dependencias solo para las pruebas (se suman a las de la API).
+# httpx2 es el cliente HTTP que usa el TestClient de las versiones recientes de
+# Starlette/FastAPI (con versiones antiguas, usa `httpx>=0.27` en su lugar).
+pytest>=8
+httpx2

@@ -22,20 +22,20 @@ router = APIRouter(prefix="/producers", tags=["producers"])
 @router.post("", response_model=ProducerOut, status_code=status.HTTP_201_CREATED)
 def create_producer(payload: ProducerCreate, db: DbSession):
     """Crea un productor. Responde 409 si el documento ya existe."""
-    existing = db.query(Producer).filter(
-        Producer.document_number == payload.document_number
-    ).first()
+    producer = Producer(**payload.model_dump())
+    db.add(producer)
 
-    if (existing):
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
         raise HTTPException(
             status.HTTP_409_CONFLICT,
             "Ya existe un productor con ese número de documento",
         )
 
-    producer = Producer(**payload.model_dump())
-    db.add(producer)
-    db.commit()
-
+    db.refresh(producer)
+    return producer
 
 @router.get("", response_model=list[ProducerOut])
 def list_producers(db: DbSession):
