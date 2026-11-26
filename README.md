@@ -5,6 +5,10 @@ Cualquier sistema operativo que cuente con docker puede ejecutar el siguiente co
 ```
 docker compose up --build
 ```
+El backend no se va a desplegar sin primero pasar todas las pruebas, pero si se quieren comprobar manualmente, ejecutar el siguiente comando:
+```
+docker compose exec api pytest -v
+```
 ---
 ### Stack tecnologico
 

@@ -1,0 +1,210 @@
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  border-radius: 0;
+  background: #e8eee9;
+  z-index: 0;
+}
+
+.farm-popup {
+  min-width: 180px;
+  padding: 2px;
+}
+
+.farm-popup p {
+  margin: 7px 0;
+  font-size: 13px;
+  color: #334155;
+}
+
+.farm-popup strong {
+  color: #1e293b;
+}
+
+/* Estilos generales de Leaflet. */
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+}
+
+/* Pin personalizado. */
+
+.farm-pin-wrapper {
+  background: transparent;
+  border: none;
+}
+
+.farm-pin {
+  display: block;
+  position: relative;
+
+  width: 32px;
+  height: 32px;
+
+  background: #e65b43;
+  border: 3px solid #ffffff;
+
+  border-radius: 50% 50% 50% 0;
+
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.35);
+
+  transform: rotate(-45deg) scale(var(--pin-scale, 1));
+  transform-origin: center;
+
+  transition: transform 100ms linear;
+}
+
+/* Círculo blanco del pin. */
+
+.farm-pin::after {
+  content: "";
+
+  position: absolute;
+
+  width: 10px;
+  height: 10px;
+
+  background: white;
+  border-radius: 50%;
+
+  top: 8px;
+  left: 8px;
+}
+
+/* Etiqueta permanente con el nombre de la finca. */
+
+.leaflet-tooltip.farm-name-tooltip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+
+  text-align: center;
+  white-space: normal;
+
+  text-shadow:
+    -1px -1px 2px #155c2e,
+    1px 1px 2px #155c2e,
+    0 0 4px #155c2e;
+
+  pointer-events: none;
+}
+
+.leaflet-tooltip.farm-name-tooltip::before {
+  display: none;
+}
+
+/* Etiqueta emergente del productor. */
+
+.leaflet-tooltip.farm-producer-tooltip {
+  background: #ffffff;
+  color: #1e293b;
+
+  border: 1px solid #dce5de;
+  border-radius: 8px;
+
+  padding: 9px 12px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+
+  font-size: 13px;
+}
+
+.leaflet-tooltip.farm-producer-tooltip::before {
+  border-top-color: #ffffff;
+}
+
+/* Popup que aparece al pulsar un pin. */
+
+.farm-popup {
+  min-width: 160px;
+}
+
+.farm-popup p {
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+/* Mensajes superpuestos al mapa. */
+
+.map-overlay {
+  position: absolute;
+  z-index: 1000;
+
+  top: 15px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  padding: 9px 15px;
+
+  background: #ffffff;
+  border-radius: 8px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  color: #475569;
+  font-size: 13px;
+}
+
+.map-overlay-error {
+  color: #dc2626;
+}
+
+/* Leyenda inferior. */
+
+.map-legend {
+  position: absolute;
+  z-index: 1000;
+
+  bottom: 15px;
+  left: 15px;
+
+  max-width: calc(100% - 30px);
+
+  padding: 9px 13px;
+
+  background: #ffffff;
+  border-radius: 8px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  color: #475569;
+  font-size: 12px;
+}
+
+/* Atribución de Leaflet y OpenStreetMap */
+.leaflet-control-attribution {
+  width: fit-content !important;
+  max-width: calc(100% - 20px);
+  padding: 3px 7px !important;
+  margin: 0 !important;
+
+  background: rgba(255, 255, 255, 0.75) !important;
+  border-radius: 5px 0 0 0;
+
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+  color: #475569 !important;
+
+  box-shadow: none !important;
+}
+
+.leaflet-control-attribution a {
+  color: #475569 !important;
+  text-decoration: none;
+}
